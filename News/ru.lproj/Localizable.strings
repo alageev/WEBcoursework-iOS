@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings (Russian)
+  News
+
+  Created by Алексей Агеев on 29.10.2020.
+  
+*/
+
+"Already_have_an_account?" = "Есть аккаунт?";
+"Don't_have_an_account?"   = "Нет аккаунта?";
+"Wrong_information!"       = "Неверно указаны данные";
+"name"                     = "Имя";
+"lastname"                 = "Фамилия";
+"nickname"                 = "Никнейм";
+"password"                 = "Пароль";
+"confirm_password"         = "Подтвердите пароль";
+"Log_In_noun"              = "Вход";
+"Log_In_verb"              = "Войти";
+"Sign_In_noun"             = "Регистрация";
+"Sign_In_verb"             = "Зарегистрироваться";
+//"News"                     = "Зарегистрироваться";
+"Fill_this_fields"         = "Заполните эти поля";
+"Choose_photo"             = "Выбрать фотографию";
+"Photo_description"        = "Описание фото";
+"Photo_from_library"       = "Выбрать фото из библиотеки";
+"Photo_from_camera"        = "Сделать новую фотографию";
+"Continue_without_photo"   = "Продолжить без фото";
+"Feed"                     = "Лента";
+"Change_photo"             = "Сменить фотографию";
