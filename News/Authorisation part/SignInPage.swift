@@ -71,10 +71,11 @@ struct SignInPage: View {
                     passwordsDoNotMatch = false
                     if user.password == user.confirmPassword {
                         if selectedImage != nil {
-                            imageLoader.uploadImage(selectedImage!)
+//                            imageLoader.uploadImage(selectedImage!)
                             user.imageLink = imageLoader.fileName
+                            imageLoader.image = selectedImage!
                         }
-                        request.makeRequest(user: user, .registration)
+                        request.makeRequest(user: user, .registration, next: imageLoader.uploadImage)
                     } else {
                         passwordsDoNotMatch = true
                     }
@@ -87,6 +88,10 @@ struct SignInPage: View {
             }
         }
         .navigationTitle("Sign_In_noun")
+    }
+    
+    func register(){
+        
     }
 }
 

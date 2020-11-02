@@ -10,13 +10,28 @@ import SwiftUI
 struct ContentView: View {
 
     @State var isLoggedIn = false
+    @State var selectedTab = 0
 
     var body: some View {
-        if !isLoggedIn {
-            NonAuthorizedView(isLoggedIn: $isLoggedIn)
-        } else {
-//            AuthorizedView()
-            EmptyView()
+        TabView(selection: $selectedTab) {
+            Feed(posts: testPosts)
+                .tabItem {
+                    Image(systemName: selectedTab == 0 ? "newspaper" : "newspaper.fill")
+                    Text("Feed")
+                    
+                }
+                .tag(0)
+            if !isLoggedIn {
+                Authorization(isLoggedIn: $isLoggedIn)
+                    .tabItem {
+                        Image(systemName: selectedTab ==  1 ? "person" : "person.fill")
+                        Text("Log_In_noun")
+                        
+                    }
+                    .tag(1)
+            } else {
+                ProfileView()
+            }
         }
     }
 }

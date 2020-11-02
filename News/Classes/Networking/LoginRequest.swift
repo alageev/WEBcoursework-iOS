@@ -24,7 +24,7 @@ class LoginRequest: ObservableObject {
         self._isLoggedIn = isLoggedIn
     }
     
-    func makeRequest<T: Encodable>(user: T, _ requestFor: requestDestination){
+    func makeRequest<T: Encodable>(user: T, _ requestFor: requestDestination, next: (()->())? = nil){
         
         var request: URLRequest
         switch requestFor {
@@ -59,6 +59,9 @@ class LoginRequest: ObservableObject {
                         self.isLoaded = true
                         self.isLoggedIn = true
                         thisUser.token = decodedJSON.token
+                        if next != nil {
+                            next!()
+                        }
                     }
                 }
             } catch {

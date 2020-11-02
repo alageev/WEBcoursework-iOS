@@ -14,14 +14,18 @@ struct Feed: View {
     var body: some View {
         NavigationView {
             List (posts) { post in
-                Section {
-//                NavigationLink(destination:) {
-                    NewsRow(post: post)
+//                ForEach {
+                    Section {
+    //                NavigationLink(destination:) {
+                        NewsRow(post: post)
+    //                }
+                    }
 //                }
-                }
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Feed")
+            
+//            Button(<#T##title: StringProtocol##StringProtocol#>, action: <#T##() -> Void#>)
         }
     }
 }

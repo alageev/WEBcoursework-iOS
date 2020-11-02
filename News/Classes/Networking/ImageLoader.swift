@@ -38,12 +38,12 @@ final class ImageLoader: ObservableObject {
         
     }
     
-    func uploadImage(_ image: UIImage){
-        DispatchQueue.global(qos: .userInteractive).async {
+    func uploadImage(){
+        DispatchQueue.global(qos: .default).async {
             let params = CLDUploadRequestParams().setFolder("news").setPublicId(self.fileName)
 //            params
 //            params
-            guard let imageData = image.jpegData(compressionQuality: 1) else {
+            guard let imageData = self.image.jpegData(compressionQuality: 1) else {
                 print("can't make JPEG")
                 return
             }
