@@ -20,7 +20,7 @@ struct SignInPage: View {
     let imageLoader = ImageLoader()
     @State var showAction: Bool = false
     @Binding var show: Bool
-    @State var user = User.NewUser()
+    @State var user = User.Registration()
     @State var passwordsDoNotMatch = false
     @State private var selectedImage: UIImage? = nil
     
@@ -31,22 +31,22 @@ struct SignInPage: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Already_have_an_account?")) {
-                Button(action: {show.toggle()}, label: {Text("Log_In_noun")})
+            Section(header: Text("Уже есть аккаунт?")) {
+                Button(action: {show.toggle()}, label: {Text("Вход")})
             }
-            Section(header: Text("Fill_this_fields")) {
-                TextField("email", text: $user.email)
+            Section(header: Text("Заполните эти поля")) {
+                TextField("Email", text: $user.email)
                     .textContentType(.username)
                     .keyboardType(.emailAddress)
-                TextField("name", text: $user.name)
+                TextField("Имя", text: $user.name)
                     .textContentType(.givenName)
-                TextField("lastname", text: $user.lastname)
+                TextField("Фамилия", text: $user.lastname)
                     .textContentType(.familyName)
-                TextField("nickname", text: $user.nickname)
+                TextField("Nickname", text: $user.nickname)
                     .textContentType(.nickname)
-                SecureField("password", text: $user.password)
+                SecureField("Пароль", text: $user.password)
                     .textContentType(.newPassword)
-                SecureField("confirm_password", text: $user.confirmPassword)
+                SecureField("Повторите пароль", text: $user.confirmPassword)
                     .textContentType(.password)
             }
             
@@ -61,9 +61,9 @@ struct SignInPage: View {
                 }
                 PhotoButton(selectedImage: $selectedImage,
                             title: NSLocalizedString(selectedImage == nil ?
-                                "Choose_photo":
-                                "Change_photo", comment: ""),
-                            description: NSLocalizedString("Photo_description", comment: ""))
+                                "Выбрать фото":
+                                "Сменить фото", comment: ""),
+                            description: "Это фото будет установлено фотографией вашего профиля")
             }
             
             Section {
@@ -71,8 +71,6 @@ struct SignInPage: View {
                     passwordsDoNotMatch = false
                     if user.password == user.confirmPassword {
                         if selectedImage != nil {
-//                            imageLoader.uploadImage(selectedImage!)
-                            user.imageLink = imageLoader.fileName
                             imageLoader.image = selectedImage!
                         }
                         request.makeRequest(user: user, .registration, next: imageLoader.uploadImage)
@@ -80,14 +78,14 @@ struct SignInPage: View {
                         passwordsDoNotMatch = true
                     }
                 }, label: {
-                    Text("Sign_In_verb")
+                    Text("Зарегистрироваться")
                         .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .center)
                 })
                 .disabled(disableForm)
             }
         }
-        .navigationTitle("Sign_In_noun")
+        .navigationTitle("Регистрация")
     }
     
     func register(){

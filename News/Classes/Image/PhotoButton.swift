@@ -30,15 +30,15 @@ struct PhotoButton: View {
             ActionSheet(title: Text(title),
                         message: Text(description),
                         buttons: [
-                            .default(Text("Photo_from_library"), action: {
+                            .default(Text("Выбрать из библиотеки"), action: {
                                 sourceType = .photoLibrary
                                 isImagePickerDisplay = true
                             }),
-                            .default(Text("Photo_from_camera"), action: {
+                            .default(Text("Сделать снимок"), action: {
                                 sourceType = .camera
                                 isImagePickerDisplay = true
                             }),
-                            .cancel(Text("Continue_without_photo"))
+                            .cancel(Text("Продолжить без фото"))
                         ])
         }
         .sheet(isPresented: self.$isImagePickerDisplay) {

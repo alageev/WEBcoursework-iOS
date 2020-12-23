@@ -5,5 +5,7 @@
 //  Created by Алексей Агеев on 25.10.2020.
 //
 
+import Foundation
 
-var thisUser = User.ThisUser()
+var session = URLSession(configuration: .default)
+//var thisUser = User()

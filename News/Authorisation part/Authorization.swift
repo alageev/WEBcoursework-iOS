@@ -10,7 +10,6 @@ import SwiftUI
 struct Authorization: View {
     
     @ObservedObject var request: LoginRequest
-    
     @State var haveAnAccount = true
     
     init(isLoggedIn: Binding<Bool>){

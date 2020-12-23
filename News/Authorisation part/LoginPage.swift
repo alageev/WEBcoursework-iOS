@@ -16,7 +16,7 @@ struct LoginPage: View {
     
     var request: LoginRequest
     @Binding var show: Bool
-    @State var user = User.OldUser()
+    @State var user = User.Login()
         
     init(show: Binding<Bool>, request: LoginRequest){
         self.request = request
@@ -26,28 +26,31 @@ struct LoginPage: View {
     var body: some View {
         Form {
             
-            Section(header: Text("Don't_have_an_account?")){
-                Button(action: { show.toggle() }, label: { Text("Sign_In_noun") })
+            Section(header: Text("Нет аккаунта?")){
+                Button(action: { show.toggle() }, label: { Text("Регистрация") })
             }
             
-            Section(header: Text("Fill_this_fields")) {
-                TextField("email", text: $user.email)
+            Section(header: Text("Заполните эти поля")) {
+                TextField("Email", text: $user.email)
                     .textContentType(.username)
                     .keyboardType(.emailAddress)
-                SecureField("password", text: $user.password)
+                SecureField("Пароль", text: $user.password)
                     .textContentType(.password)
             }
+            
+            Section {
                 Button(action: {
                     request.makeRequest(user: user, .login)
                 }, label: {
-                    Text("Log_In_verb")
+                    Text("Войти")
                         .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .center)
                 })
                 .disabled(disableForm)
+            }
         }
         .ignoresSafeArea(.container)
-        .navigationTitle("Log_In_noun")
+        .navigationTitle("Вход")
     }
 }
 

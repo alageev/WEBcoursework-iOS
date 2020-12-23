@@ -9,29 +9,33 @@ import SwiftUI
 
 struct Feed: View {
     
-    let posts: [Post.PostWithAuthorData]
+    @ObservedObject var posts = Post.loaded
+    @ObservedObject var iGuidesPosts = Post.iGuides
     
     var body: some View {
         NavigationView {
-            List (posts) { post in
-//                ForEach {
-                    Section {
-    //                NavigationLink(destination:) {
-                        NewsRow(post: post)
-    //                }
+            if let posts = posts {
+                List {
+                    Section(header: Text("Мои посты")) {
+                        ForEach (posts.loadedData ?? [], id: \.id) { post in
+                            PostRow(post: post)
+                        }
                     }
-//                }
+                    Section(header: Text("Посты из iGuides.ru")) {
+                        ForEach (iGuidesPosts.loadedData ?? []) { post in
+                            iGuidesPostRow(post: post)
+                        }
+                    }
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationTitle("Лента")
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Feed")
-            
-//            Button(<#T##title: StringProtocol##StringProtocol#>, action: <#T##() -> Void#>)
         }
     }
 }
 
 struct Feed_Previews: PreviewProvider {
     static var previews: some View {
-        Feed(posts: testPosts)
+        Feed()
     }
 }

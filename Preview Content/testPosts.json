@@ -1,0 +1,59 @@
+[
+    {
+        "author": {
+            "email": "alageev01@gmail.com",
+            "lastname": "Агеев",
+            "id": "76B52F0C-07F7-4C60-89E5-527BF6979F20",
+            "nickname": "alageev",
+            "name": "Алексей",
+            "password": ""
+        },
+        "header": "FIRST",
+        "id": "BC1D7EC6-B45A-4EEE-B97C-7F56AC0B2C4B",
+        "replyTo": {
+            "id": null
+        },
+        "text": "FIRST",
+        "numberOfDislikes": 0,
+        "createdAt": "2020-11-29T01:01:25Z",
+        "numberOfLikes": 0
+    },
+    {
+        "author": {
+            "password": "",
+            "lastname": "Jobs",
+            "email": "jobs@apple.com",
+            "nickname": "SteveJobs",
+            "name": "Steve",
+            "id": "39B2A346-2C35-4716-AE1E-C734E29C91B3"
+        },
+        "header": "Think Different",
+        "id": "4F1ED47A-DD6A-4DE7-BDC4-A766F027159E",
+        "replyTo": {
+            "id": null
+        },
+        "text": "Here’s to the crazy ones",
+        "numberOfDislikes": 0,
+        "createdAt": "1997-09-01T00:00:00Z",
+        "numberOfLikes": 0
+    },
+    {
+        "author": {
+            "email": "alageev01@gmail.com",
+            "lastname": "Агеев",
+            "password": "",
+            "id": "76B52F0C-07F7-4C60-89E5-527BF6979F20",
+            "name": "Алексей",
+            "nickname": "alageev"
+        },
+        "header": null,
+        "id": "767D1AC8-40E8-420C-9CA2-55CB1E3D59FF",
+        "replyTo": {
+            "id": "BC1D7EC6-B45A-4EEE-B97C-7F56AC0B2C4B"
+        },
+        "text": "second",
+        "numberOfDislikes": 0,
+        "createdAt": "2020-11-29T04:26:27Z",
+        "numberOfLikes": 0
+    }
+]

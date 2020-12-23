@@ -1,5 +1,5 @@
 //
-//  NewsDetail.swift
+//  PostDetail.swift
 //  News
 //
 //  Created by Алексей Агеев on 01.11.2020.
@@ -7,30 +7,26 @@
 
 import SwiftUI
 
-struct NewsDetail: View {
+struct PostDetail: View {
     
     @ObservedObject var postImageLoader: ImageLoader
     @ObservedObject var userImageLoader: ImageLoader
-    let post: Post.PostWithAuthorData
+    let post: Post.Server
     
-    init(post: Post.PostWithAuthorData){
+    init(post: Post.Server){
         postImageLoader = ImageLoader()
         userImageLoader = ImageLoader()
         self.post = post
         
-        if post.imageLink != nil {
-            postImageLoader.downloadImage(from: post.imageLink!)
-        }
-        if post.author.imageLink != nil {
-            userImageLoader.downloadImage(from: post.author.imageLink!)
-        }
+        postImageLoader.downloadImage(from: post.id)
+        userImageLoader.downloadImage(from: post.author.id)
     }
     
     
     var body: some View {
         ScrollView {
-            if post.imageLink != nil {
-                Image(uiImage: postImageLoader.image)
+            if let image = postImageLoader.image {
+                Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .ignoresSafeArea()
@@ -38,24 +34,24 @@ struct NewsDetail: View {
             VStack(alignment: .leading){
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(post.header!)
+                        Text(post.header)
                             .font(.largeTitle)
                         Text("\(post.author.name) \(post.author.lastname)")
                             .font(.title)
                             .foregroundColor(.secondary)
                     }
                     Spacer()
-                    if post.author.imageLink != nil {
-                        Image(uiImage: userImageLoader.image)
+                    if let image = userImageLoader.image {
+                        Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .clipShape(Circle())
                             .clipped()
                     }
                 }
                 Divider()
-                Text(post.text)
+                Text(post.text).multilineTextAlignment(.leading)
             }.padding()
         }
     }
@@ -63,9 +59,9 @@ struct NewsDetail: View {
 
 struct NewsDetail_Previews: PreviewProvider {
     static var previews: some View {
-        NewsDetail(post: testPosts[0])
+        PostDetail(post: testPosts[0])
             .previewDevice("iPhone 12 Pro Max")
-        NewsDetail(post: testPosts[0]).previewDevice("iPod touch (7th generation)")
+        PostDetail(post: testPosts[0]).previewDevice("iPod touch (7th generation)")
     }
 }
 

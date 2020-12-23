@@ -10,44 +10,46 @@ import Cloudinary
 import UIKit
 
 final class ImageLoader: ObservableObject {
-//    let config: CLDConfiguration
-//    let cloudinary: CLDCloudinary
+    
     let downloader: CLDDownloader
     let uploader: CLDUploader
     let cloudinary: CLDCloudinary
-    let fileName = UUID().uuidString
     
-    @Published var image: UIImage = UIImage(imageLiteralResourceName: "Placeholder")
+    @Published var image: UIImage? = nil
     
     init () {
-        let config = CLDConfiguration(cloudinaryUrl: constants.cloudinaryURL)!
+        let config = CLDConfiguration(cloudinaryUrl: Constants.shared.cloudinaryURL)!
         self.cloudinary = CLDCloudinary(configuration: config)
         self.downloader = cloudinary.createDownloader()
         self.uploader = cloudinary.createUploader()
     }
-    
-    func downloadImage(from url: String){
+
+    func downloadImage(from url: String) {
         DispatchQueue.global(qos: .userInteractive).async {
             let imageUrl = self.cloudinary.createUrl().generate(url)!
-            self.downloader.fetchImage(imageUrl, completionHandler:  { (image, error) in
+            self.downloader.fetchImage(imageUrl + ".png", completionHandler: { image, error in
+                guard error == nil else {
+                    print("Error loading image: \(error!)")
+                    
+                    print("Error for:", imageUrl)
+                    return
+                }
+                print("loaded from:", imageUrl)
                 DispatchQueue.main.async {
-                    self.image = image ?? UIImage(imageLiteralResourceName: "Placeholder")
+                    self.image = image
                 }
             })
         }
-        
     }
     
-    func uploadImage(){
+    func uploadImage(id: UUID) {
         DispatchQueue.global(qos: .default).async {
-            let params = CLDUploadRequestParams().setFolder("news").setPublicId(self.fileName)
-//            params
-//            params
-            guard let imageData = self.image.jpegData(compressionQuality: 1) else {
-                print("can't make JPEG")
+            let params = CLDUploadRequestParams().setPublicId(id.uuidString.lowercased())
+            guard let imageData = self.image?.pngData() else {
+                print("can't make PNG")
                 return
             }
-            self.uploader.upload(data: imageData, uploadPreset: "news_upload", params: params)
+            self.cloudinary.createUploader().upload(data: imageData, uploadPreset: "news_upload", params: params)
         }
     }
 }

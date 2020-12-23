@@ -7,70 +7,72 @@
 
 import Foundation
 
-final class User {
+struct User: Codable {
+    static let loaded = JSONLoader<User.Server>(url: Constants.shared.userSelf)
     
-    var id: UUID?
-    var email: String
-    var name: String
-    var lastname: String
-    var nickname: String
-    var password: String
-    var imageLink: String?
-        
-    init(id:        UUID?   = nil,
-         email:     String,
-         name:      String,
-         lastname:  String,
-         nickname:  String,
-         password:  String,
-         imageLink: String? = nil) {
-        
-        self.id = id
-        self.email = email.lowercased()
-        self.name = name
-        self.lastname = lastname
-        self.nickname = nickname
-        self.password = password
-        self.imageLink = imageLink
+    static var id: String = ""
+    static var email: String = ""
+    static var name: String = ""
+    static var lastname: String = ""
+    static var nickname: String = ""
+    static var token: String = ""
+    
+    init () {
+        User.id = ""
+        User.email = ""
+        User.name = ""
+        User.lastname = ""
+        User.nickname = ""
+        User.token = ""
     }
-}
-
-extension User {
-    struct NewUser: Codable {
+    
+    init (from user: User.Server){
+        User.id = user.id
+        User.email = user.email
+        User.name = user.name
+        User.lastname = user.lastname
+        User.nickname = user.nickname
+    }
+    
+    struct Registration: Codable {
+        var id: UUID = UUID()
         var email: String = ""
         var name: String = ""
         var lastname: String = ""
         var nickname: String = ""
         var password: String = ""
         var confirmPassword: String = ""
-        var imageLink: String? = nil
     }
     
-    struct OldUser: Codable {
-        var email: String = ""
-        var password: String = ""
-    }
-    
-    struct ThisUser {
-        var id: UUID? = nil
+    struct Server: Codable {
+        var id: String = ""
         var email: String = ""
         var name: String = ""
         var lastname: String = ""
         var nickname: String = ""
         var password: String = ""
-        var imageLink: String? = nil
-        var token: String = ""
+    }
+    
+    struct Login: Codable {
+        var email: String = ""
+        var password: String = ""
     }
     
     struct JWT: Decodable {
-        var token: String
-    }
-    
-    struct AnotherUser {
-        var id: UUID? = nil
+        var token: String = ""
+        var id: String = ""
+        var email: String = ""
         var name: String = ""
         var lastname: String = ""
         var nickname: String = ""
-        var imageLink: String? = nil
     }
+    
+//    struct ThisUser {
+//        var id: String = ""
+//        var email: String = ""
+//        var name: String = ""
+//        var lastname: String = ""
+//        var nickname: String = ""
+//        var token: String = ""
+//    }
 }

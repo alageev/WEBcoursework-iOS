@@ -18,20 +18,18 @@ class LoginRequest: ObservableObject {
     @Published var isLoaded = false
     @Binding var isLoggedIn: Bool
     
-//    var request: URLRequest
-    
     init(isLoggedIn: Binding<Bool>) {
         self._isLoggedIn = isLoggedIn
     }
     
-    func makeRequest<T: Encodable>(user: T, _ requestFor: requestDestination, next: (()->())? = nil){
+    func makeRequest<T: Encodable>(user: T, _ requestFor: requestDestination, next: ((UUID)->())? = nil) {
         
         var request: URLRequest
         switch requestFor {
         case .login:
-            request = URLRequest(url: constants.login)
+            request = URLRequest(url: Constants.shared.login)
         case .registration:
-            request = URLRequest(url: constants.registration)
+            request = URLRequest(url: Constants.shared.registration)
         }
         
         request.httpMethod = "POST"
@@ -43,7 +41,7 @@ class LoginRequest: ObservableObject {
             print("can't encode json")
         }
         
-        session.dataTask(with: request) {data, response, error in
+        session.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let response = response as? HTTPURLResponse,
                   error == nil
@@ -54,13 +52,21 @@ class LoginRequest: ObservableObject {
             do {
                 let decodedJSON = try JSONDecoder().decode(User.JWT.self, from: data)
                 DispatchQueue.main.async {
-                    print("decodedJSON: \(decodedJSON)")
                     if decodedJSON.token.count > 0 {
+                        
+                        User.id = decodedJSON.id
+                        User.email = decodedJSON.email
+                        User.name = decodedJSON.name
+                        User.lastname = decodedJSON.lastname
+                        User.nickname = decodedJSON.nickname
+                        User.token = decodedJSON.token
+                        
                         self.isLoaded = true
                         self.isLoggedIn = true
-                        thisUser.token = decodedJSON.token
+                        
                         if next != nil {
-                            next!()
+                            let newUser = user as! User.Registration
+                            next!(newUser.id)
                         }
                     }
                 }
