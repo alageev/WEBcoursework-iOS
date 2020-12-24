@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 class JSONLoader<T: Decodable>: ObservableObject {
-    @Published var loadedData: T? = nil
+    @Published var loadedData: T?
     @Published var isLoaded = false
     @Published var imageLoader = ImageLoader()
 
     init(url: URL) {
         var request = URLRequest(url: url)
         request.addValue("Bearer \(User.token)", forHTTPHeaderField: "Authorization")
-        session.dataTask(with: request) { data, response, error in
+        Constants.shared.session.dataTask(with: request) { data, _, error in
             do {
                 guard let data = data
                 else {
@@ -25,10 +25,10 @@ class JSONLoader<T: Decodable>: ObservableObject {
                 let decodedJSON = try JSONDecoder().decode(T.self, from: data)
                 
                 DispatchQueue.main.async {
-                    if T.self == User.Server.self {
-                        let user = decodedJSON as! User.Server
-                        self.imageLoader.downloadImage(for: user.id)
-                    }
+//                    if T.self == User.Server.self {
+//                        let user = decodedJSON as! User.Server
+//                        self.imageLoader.downloadImage(for: user.id)
+//                    }
                     self.loadedData = decodedJSON
                     self.isLoaded = true
                 }

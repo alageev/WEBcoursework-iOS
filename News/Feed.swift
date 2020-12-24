@@ -13,7 +13,7 @@ struct Feed: View {
         NavigationView {
             List {
                 PostsSection()
-                iGuidesSection()
+                IGuidesSection()
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Лента")

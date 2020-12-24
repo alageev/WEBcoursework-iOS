@@ -13,16 +13,16 @@ struct PostRow: View {
     @State var isPresented = false
     let post: Post.Server
     
-    init(post: Post.Server){
+    init(post: Post.Server) {
         imageLoader = ImageLoader()
         self.post = post
         imageLoader.downloadImage(for: post.id)
     }
     
     var body: some View {
-        Button(action: { isPresented.toggle() }){
+        Button(action: { isPresented.toggle() }, label: {
             HStack {
-                VStack(alignment: .leading){
+                VStack(alignment: .leading) {
                     Text("\(post.author.name) \(post.author.lastname)")
                         .font(.title3)
                         .foregroundColor(.secondary)
@@ -40,7 +40,7 @@ struct PostRow: View {
                         .clipped()
                 }
             }
-        }
+        })
         .sheet(isPresented: $isPresented, content: {
             PostDetail(post: post)
         })

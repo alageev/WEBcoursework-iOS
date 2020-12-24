@@ -10,17 +10,19 @@ import Combine
 import UIKit
 
 class PostLoader: ObservableObject {
+    
+    @discardableResult
     init(post: Post.Local, image: UIImage?) {
         let parameters: [String: Any] = [
-            "id":       post.id,
+            "id": post.id,
             "authorId": User.id,
-            "header":   post.header,
-            "text":     post.text
+            "header": post.header,
+            "text": post.text
         ]
         var request = URLRequest(url: Constants.shared.feed)
         request.httpMethod = "POST"
         request.httpBody = parameters.percentEncoded()
-        session.dataTask(with: request) {  data, response, error in
+        Constants.shared.session.dataTask(with: request) {  _, response, error in
             guard let image = image,
                   let response = response as? HTTPURLResponse,
                   error == nil,
@@ -39,4 +41,3 @@ class PostLoader: ObservableObject {
         }.resume()
     }
 }
-

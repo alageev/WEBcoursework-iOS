@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SignInPage: View {
+    
     var disableForm: Bool {
         !user.email.isValidEmail ||
         user.name.count == 0 ||
@@ -18,13 +19,14 @@ struct SignInPage: View {
     }
     var request: LoginRequest
     let imageLoader = ImageLoader()
+    
     @State var showAction: Bool = false
     @Binding var show: Bool
     @State var user = User.Registration()
     @State var passwordsDoNotMatch = false
-    @State private var selectedImage: UIImage? = nil
+    @State private var selectedImage: UIImage?
     
-    init(show: Binding<Bool>, request: LoginRequest){
+    init(show: Binding<Bool>, request: LoginRequest) {
         self.request = request
         self._show = show
     }
@@ -32,7 +34,7 @@ struct SignInPage: View {
     var body: some View {
         Form {
             Section(header: Text("Уже есть аккаунт?")) {
-                Button(action: {show.toggle()}, label: {Text("Вход")})
+                Button(action: { show.toggle() }, label: { Text("Вход") })
             }
             Section(header: Text("Заполните эти поля")) {
                 TextField("Email", text: $user.email)
@@ -86,10 +88,6 @@ struct SignInPage: View {
             }
         }
         .navigationTitle("Регистрация")
-    }
-    
-    func register(){
-        
     }
 }
 

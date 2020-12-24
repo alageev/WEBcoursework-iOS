@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MakePost: View {
     
-    @State var selectedImage: UIImage? = nil
+    @State var selectedImage: UIImage?
     @State var post = Post.Local()
     @State var showAction = false
     
@@ -22,10 +22,11 @@ struct MakePost: View {
                 })
                 .actionSheet(isPresented: $showAction) {
                     ActionSheet(title: Text("Опубликовать пост?"),
-                                message: Text("Вы ещё можете его отредактировать. После отправки редактирование невозможно"),
+                                message:
+                                    Text("Вы ещё можете его отредактировать. После отправки редактирование невозможно"),
                                 buttons: [
                                     .default(Text("Отправить"), action: {
-                                        let _ = PostLoader(post: post, image: selectedImage)
+                                        PostLoader(post: post, image: selectedImage)
                                         withAnimation {
                                             selectedImage = nil
                                             post = Post.Local()

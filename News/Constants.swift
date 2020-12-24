@@ -17,6 +17,7 @@ class Constants {
     let login: URL
     let registration: URL
     let cloudinaryURL: String
+    let session = URLSession(configuration: .default)
     
     init() {
         guard let filePath = Bundle.main.path(forResource: "Keys", ofType: "plist") else {
@@ -27,7 +28,7 @@ class Constants {
             fatalError("Couldn't find key 'Server_URL' in 'Keys.plist'.")
         }
         guard let url = plist?.object(forKey: "CLOUDINARY_URL") as? String else {
-            fatalError("Couldn't find key 'Server_URL' in 'Keys.plist'.")
+            fatalError("Couldn't find key 'CLOUDINARY_URL' in 'Keys.plist'.")
         }
         
         self.cloudinaryURL = url
@@ -48,12 +49,13 @@ class Constants {
 extension String {
     var isValidEmail: Bool {
         let regularExpressionForEmail = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let testEmail = NSPredicate(format:"SELF MATCHES %@", regularExpressionForEmail)
+        let testEmail = NSPredicate(format: "SELF MATCHES %@", regularExpressionForEmail)
         return testEmail.evaluate(with: self)
     }
 }
 
 extension Dictionary {
+    
     func percentEncoded() -> Data? {
         return map { key, value in
             let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
@@ -63,6 +65,7 @@ extension Dictionary {
         .joined(separator: "&")
         .data(using: .utf8)
     }
+    
 }
 
 extension CharacterSet {

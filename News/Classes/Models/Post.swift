@@ -11,7 +11,7 @@ import UIKit
 struct Post {
     
     static let loaded = JSONLoader<[Post.Server]>(url: Constants.shared.feed)
-    static let iGuides = iGuidesLoader(url: URL(string: "https://www.iguides.ru")!)
+    static let iGuides = IGuidesLoader(url: URL(string: "https://www.iguides.ru")!)
     
     struct Local: Encodable {
         var id: UUID = UUID()

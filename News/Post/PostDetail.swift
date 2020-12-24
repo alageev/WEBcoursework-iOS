@@ -13,7 +13,7 @@ struct PostDetail: View {
     @ObservedObject var userImageLoader: ImageLoader
     let post: Post.Server
     
-    init(post: Post.Server){
+    init(post: Post.Server) {
         postImageLoader = ImageLoader()
         userImageLoader = ImageLoader()
         self.post = post
@@ -21,7 +21,6 @@ struct PostDetail: View {
         postImageLoader.downloadImage(for: post.id)
         userImageLoader.downloadImage(for: post.author.id)
     }
-    
     
     var body: some View {
         ScrollView {
@@ -31,7 +30,7 @@ struct PostDetail: View {
                 .aspectRatio(contentMode: .fit)
                 .ignoresSafeArea()
             }
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(post.header)

@@ -12,7 +12,7 @@ struct Authorization: View {
     @ObservedObject var request: LoginRequest
     @State var haveAnAccount = true
     
-    init(isLoggedIn: Binding<Bool>){
+    init(isLoggedIn: Binding<Bool>) {
         self.request = LoginRequest(isLoggedIn: isLoggedIn)
     }
     

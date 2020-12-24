@@ -1,5 +1,5 @@
 //
-//  iGuidesSection.swift
+//  IGuidesSection.swift
 //  News (iOS)
 //
 //  Created by Алексей Агеев on 24.12.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct iGuidesSection: View {
+struct IGuidesSection: View {
     
     @ObservedObject var posts = Post.iGuides
     
@@ -15,15 +15,15 @@ struct iGuidesSection: View {
         Section(header: Text("Посты из iGuides.ru")) {
             ForEach (posts.loadedData) { post in
                 withAnimation {
-                    iGuidesPostRow(post: post)
+                    IGuidesPostRow(post: post)
                 }
             }
         }
     }
 }
 
-struct iGuidesSection_Previews: PreviewProvider {
+struct IGuidesSection_Previews: PreviewProvider {
     static var previews: some View {
-        iGuidesSection()
+        IGuidesSection()
     }
 }

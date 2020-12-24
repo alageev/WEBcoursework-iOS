@@ -18,7 +18,7 @@ struct LoginPage: View {
     @Binding var show: Bool
     @State var user = User.Login()
         
-    init(show: Binding<Bool>, request: LoginRequest){
+    init(show: Binding<Bool>, request: LoginRequest) {
         self.request = request
         self._show = show
     }
@@ -26,7 +26,7 @@ struct LoginPage: View {
     var body: some View {
         Form {
             
-            Section(header: Text("Нет аккаунта?")){
+            Section(header: Text("Нет аккаунта?")) {
                 Button(action: { show.toggle() }, label: { Text("Регистрация") })
             }
             
@@ -59,4 +59,3 @@ struct LoginPage_Previews: PreviewProvider {
         LoginPage(show: .constant(true), request: LoginRequest(isLoggedIn: .constant(false)))
     }
 }
-

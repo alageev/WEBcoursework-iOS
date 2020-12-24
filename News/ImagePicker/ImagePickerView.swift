@@ -30,9 +30,9 @@ struct ImagePickerView: UIViewControllerRepresentable {
         return Coordinator(picker: self)
     }
 }
-//
+
 //struct ImagePickerView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ImagePickerView()
+//        ImagePickerView(selectedImage: <#T##Binding<UIImage?>#>, sourceType: <#T##UIImagePickerController.SourceType#>)
 //    }
 //}

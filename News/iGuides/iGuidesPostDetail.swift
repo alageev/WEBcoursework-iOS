@@ -1,5 +1,5 @@
 //
-//  iGuidesPostDetail.swift
+//  IGuidesPostDetail.swift
 //  News (iOS)
 //
 //  Created by Алексей Агеев on 22.12.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct iGuidesPostDetail: View {
+struct IGuidesPostDetail: View {
     let post: Post.iGuidesPost
     
     var body: some View {
@@ -16,7 +16,7 @@ struct iGuidesPostDetail: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .ignoresSafeArea()
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(post.header)
@@ -40,7 +40,7 @@ struct iGuidesPostDetail: View {
     }
 }
 
-struct iGuidesPostDetail_Previews: PreviewProvider {
+struct IGuidesPostDetail_Previews: PreviewProvider {
     static var previews: some View {
 //        iGuidesPostDetail()
         EmptyView()

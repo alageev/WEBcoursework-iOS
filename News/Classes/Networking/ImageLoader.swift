@@ -13,7 +13,7 @@ final class ImageLoader: ObservableObject {
     
     let cloudinary: CLDCloudinary
     
-    @Published var image: UIImage? = nil
+    @Published var image: UIImage?
     
     init () {
         let config = CLDConfiguration(cloudinaryUrl: Constants.shared.cloudinaryURL)!
@@ -45,11 +45,10 @@ final class ImageLoader: ObservableObject {
                 return
             }
             self.cloudinary.createUploader().upload(data: imageData, uploadPreset: "news_upload", params: params)
-                .response { response, error in
+                .response { _, error in
                     guard error == nil else {
                         return
                     }
-                    
                 }
         }
     }
@@ -63,9 +62,8 @@ final class ImageLoader: ObservableObject {
         }
         
         self.cloudinary.createUploader()
-            .upload(data: imageData,
-                    uploadPreset: "news_upload",
-                    params: params, completionHandler: { response, error in
+            .upload(data: imageData, uploadPreset: "news_upload", params: params,
+                    completionHandler: { _, error in
                         guard error == nil else {
                             print(error!)
                             return
@@ -73,4 +71,5 @@ final class ImageLoader: ObservableObject {
                         Post.loaded.loadedData?.append(post)
                     })
     }
+    
 }

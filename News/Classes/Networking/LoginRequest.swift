@@ -10,7 +10,7 @@ import SwiftUI
 
 class LoginRequest: ObservableObject {
     
-    enum requestDestination {
+    enum RequestDestination {
         case login
         case registration
     }
@@ -22,7 +22,8 @@ class LoginRequest: ObservableObject {
         self._isLoggedIn = isLoggedIn
     }
     
-    func makeRequest<T: Encodable>(user: T, _ requestFor: requestDestination, next: ((UUID)->())? = nil) {
+    func makeRequest<T: Encodable>(user: T, _ requestFor: RequestDestination,
+                                   next: ((UUID) -> Void)? = nil) {
         
         var request: URLRequest
         switch requestFor {
@@ -41,7 +42,7 @@ class LoginRequest: ObservableObject {
             print("can't encode json")
         }
         
-        session.dataTask(with: request) { data, response, error in
+        Constants.shared.session.dataTask(with: request) { data, response, error in
             guard let data = data,
                   let response = response as? HTTPURLResponse,
                   error == nil

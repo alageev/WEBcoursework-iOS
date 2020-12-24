@@ -7,5 +7,5 @@
 
 import Foundation
 
-var session = URLSession(configuration: .default)
+
 //var thisUser = User()

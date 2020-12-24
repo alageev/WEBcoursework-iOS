@@ -26,7 +26,7 @@ struct User: Codable {
         User.token = ""
     }
     
-    init (from user: User.Server){
+    init (from user: User.Server) {
         User.id = user.id
         User.email = user.email
         User.name = user.name

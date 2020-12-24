@@ -1,5 +1,5 @@
 //
-//  iGuidesPostRow.swift
+//  IGuidesPostRow.swift
 //  News (iOS)
 //
 //  Created by Алексей Агеев on 22.12.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct iGuidesPostRow: View {
+struct IGuidesPostRow: View {
     
     @State var isPresented = false
     let post: Post.iGuidesPost
@@ -34,12 +34,12 @@ struct iGuidesPostRow: View {
         }
         //        .foregroundColor(.primary)
         .sheet(isPresented: $isPresented, content: {
-            iGuidesPostDetail(post: post)
+            IGuidesPostDetail(post: post)
         })
     }
 }
 
-struct iGuidesPostRow_Previews: PreviewProvider {
+struct IGuidesPostRow_Previews: PreviewProvider {
     static var previews: some View {
 //        iGuidesPostRow()
         EmptyView()
