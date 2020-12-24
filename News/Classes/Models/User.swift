@@ -66,13 +66,4 @@ struct User: Codable {
         var lastname: String = ""
         var nickname: String = ""
     }
-    
-//    struct ThisUser {
-//        var id: String = ""
-//        var email: String = ""
-//        var name: String = ""
-//        var lastname: String = ""
-//        var nickname: String = ""
-//        var token: String = ""
-//    }
 }

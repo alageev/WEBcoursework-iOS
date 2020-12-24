@@ -29,6 +29,7 @@ class Constants {
         guard let url = plist?.object(forKey: "CLOUDINARY_URL") as? String else {
             fatalError("Couldn't find key 'Server_URL' in 'Keys.plist'.")
         }
+        
         self.cloudinaryURL = url
         let serverAdress = URL(string: string)!
         feed = serverAdress.appendingPathComponent("post")

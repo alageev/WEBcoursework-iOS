@@ -24,11 +24,11 @@ struct ContentView: View {
                     .tag(0)
             } else {
                 Feed()
-                .tabItem {
-                    Image(systemName: selectedTab == 0 ? "newspaper" : "newspaper.fill")
-                    Text("Лента")
-                }
-                .tag(0)
+                    .tabItem {
+                        Image(systemName: selectedTab == 0 ? "newspaper" : "newspaper.fill")
+                        Text("Лента")
+                    }
+                    .tag(0)
                 MakePost()
                     .tabItem {
                         Image(systemName: selectedTab == 0 ? "newspaper" : "newspaper.fill")

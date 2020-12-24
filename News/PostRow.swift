@@ -16,11 +16,11 @@ struct PostRow: View {
     init(post: Post.Server){
         imageLoader = ImageLoader()
         self.post = post
-        imageLoader.downloadImage(from: post.id)
+        imageLoader.downloadImage(for: post.id)
     }
     
     var body: some View {
-        Button(action: {isPresented.toggle()}){
+        Button(action: { isPresented.toggle() }){
             HStack {
                 VStack(alignment: .leading){
                     Text("\(post.author.name) \(post.author.lastname)")
@@ -31,8 +31,8 @@ struct PostRow: View {
                         .foregroundColor(.primary)
                 }
                 Spacer()
-                if let image = imageLoader.image {
-                    Image(uiImage: image)
+                if imageLoader.image != nil {
+                    Image(uiImage: imageLoader.image!)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 100, height: 100)
@@ -41,7 +41,6 @@ struct PostRow: View {
                 }
             }
         }
-//        .foregroundColor(.primary)
         .sheet(isPresented: $isPresented, content: {
             PostDetail(post: post)
         })

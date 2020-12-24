@@ -20,7 +20,7 @@ struct iGuidesPostRow: View {
                         .font(.title3)
                         .foregroundColor(.secondary)
                     Text(post.header)
-                        .font(.title3)
+                        .font(.headline)
                         .foregroundColor(.primary)
                 }
                 Spacer()

@@ -10,7 +10,6 @@ import Combine
 import UIKit
 
 class PostLoader: ObservableObject {
-    
     init(post: Post.Local, image: UIImage?) {
         let parameters: [String: Any] = [
             "id":       post.id,
@@ -18,7 +17,6 @@ class PostLoader: ObservableObject {
             "header":   post.header,
             "text":     post.text
         ]
-        print(parameters)
         var request = URLRequest(url: Constants.shared.feed)
         request.httpMethod = "POST"
         request.httpBody = parameters.percentEncoded()
@@ -29,13 +27,15 @@ class PostLoader: ObservableObject {
                   (200 ... 299) ~= response.statusCode else {
                 return
             }
+            print("i'm sending post")
             let imageLoader = ImageLoader()
-            print("ImageLoader created")
             imageLoader.image = image
-            print("ImageLoader image assigned")
-            imageLoader.uploadImage(id: post.id)
-            print("ImageLoader uploaded")
-            
+            let post = Post.Server(id: post.id.uuidString,
+                                   header: post.header,
+                                   text: post.text,
+                                   name: User.name,
+                                   lastname: User.lastname)
+            imageLoader.uploadImage(with: post)
         }.resume()
     }
 }

@@ -27,7 +27,7 @@ class JSONLoader<T: Decodable>: ObservableObject {
                 DispatchQueue.main.async {
                     if T.self == User.Server.self {
                         let user = decodedJSON as! User.Server
-                        self.imageLoader.downloadImage(from: user.id)
+                        self.imageLoader.downloadImage(for: user.id)
                     }
                     self.loadedData = decodedJSON
                     self.isLoaded = true

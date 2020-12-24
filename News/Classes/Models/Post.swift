@@ -34,12 +34,15 @@ struct Post {
         let text: String
         let author: User.Server
         
-        init(header: String, text: String, authorFullname: String) {
-            self.id = UUID().uuidString
+        init(id: String, header: String, text: String, name: String, lastname: String) {
+            self.id = id
             self.header = header
             self.text = text
-            let authorName = authorFullname.split(separator: " ").map { String($0) }
-            self.author = User.Server(name: authorName[0], lastname: authorName[1])
+            self.author = User.Server(id: User.id,
+                                      email: User.email,
+                                      name: User.name,
+                                      lastname: User.lastname,
+                                      nickname: User.nickname)
         }
     }
 }

@@ -11,10 +11,11 @@ import UIKit
 
 class iGuidesLoader: ObservableObject {
     
-    @Published var loadedData: [Post.iGuidesPost]? = nil
+    @Published var loadedData: [Post.iGuidesPost] = []
     
     private var links: [URL] = []
     private let iGuides = "https://www.iguides.ru"
+    
     
     init(url: URL) {
         session.dataTask(with: URLRequest(url: url)) { data, response, error in
@@ -41,19 +42,27 @@ class iGuidesLoader: ObservableObject {
                         do {
                             let doc: Document = try SwiftSoup.parse(htmlDocument)
                             let articleDetail = try doc.select("div.article-detail")
-                            let postImageURL = try URL(string: self.iGuides + articleDetail.select("img[itemprop=image]").attr("src"))!
+                            let postImageLink = try articleDetail.select("img[itemprop=image]").attr("src")
+                            let postImageURL: URL
+                            if postImageLink.hasPrefix("https://www.iguides.ru") {
+                                postImageURL = URL(string: postImageLink)!
+                            } else {
+                                postImageURL = URL(string: self.iGuides + postImageLink)!
+                            }
                             let authorContainer = try doc.select("div.author")
-                            let authorImageURL =
-                                try URL(string: self.iGuides + authorContainer.select("img").attr("src"))!
-                            
+                            let authorImageLink = try authorContainer.select("img").attr("src")
+                            let authorImageURL: URL
+                            if authorImageLink.hasPrefix("https://www.iguides.ru") {
+                                authorImageURL = URL(string: authorImageLink)!
+                            } else {
+                                authorImageURL = URL(string: self.iGuides + authorImageLink)!
+                            }
                             let authorFullname = try doc.select("div.author").select("span[itemprop=name]").text()
                             let header = try doc.select("h1[itemprop=name]").text()
                             let postText = String(try articleDetail.text())
                             var postImage: UIImage = UIImage()
                             var authorImage: UIImage = UIImage()
-                            
                             session.dataTask(with: URLRequest(url: postImageURL)) { data, response, error in
-                                
                                 guard let data = data else {
                                     return
                                 }
@@ -71,10 +80,7 @@ class iGuidesLoader: ObservableObject {
                                                                     authorFullName: authorFullname,
                                                                     image: postImage,
                                                                     authorPhoto: authorImage)
-                                        if self.loadedData == nil {
-                                            self.loadedData = []
-                                        }
-                                        self.loadedData?.append(post)
+                                        self.loadedData.append(post)
                                     }
                                 }.resume()
                             }.resume()
@@ -84,8 +90,7 @@ class iGuidesLoader: ObservableObject {
                         } catch {
                             print("error loading html")
                         }
-                    }.resume()
-                }
+                    }.resume()                }
                 
             } catch Exception.Error(_, let message) {
                 print(message)
@@ -93,7 +98,5 @@ class iGuidesLoader: ObservableObject {
                 print("error loading html")
             }
         }.resume()
-        
-        
     }
 }

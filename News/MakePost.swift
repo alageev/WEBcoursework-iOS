@@ -25,11 +25,6 @@ struct MakePost: View {
                                 message: Text("Вы ещё можете его отредактировать. После отправки редактирование невозможно"),
                                 buttons: [
                                     .default(Text("Отправить"), action: {
-                                        let postAsServerPost
-                                            = Post.Server(header: post.header,
-                                                          text: post.text,
-                                                          authorFullname: User.name + " " + User.lastname)
-                                        Post.loaded.loadedData?.append(postAsServerPost)
                                         let _ = PostLoader(post: post, image: selectedImage)
                                         withAnimation {
                                             selectedImage = nil

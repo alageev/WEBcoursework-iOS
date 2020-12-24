@@ -14,16 +14,15 @@ struct ProfileView: View {
     @ObservedObject var postsData = Post.loaded
     
     init() {
-        imageLoader.downloadImage(from: User.id)
+        imageLoader.downloadImage(for: User.id)
     }
     
     var body: some View {
-//        NavigationView {
             List {
                 Section {
                     VStack(alignment: .leading) {
-                        if let image = imageLoader.image {
-                            Image(uiImage: image)
+                        if imageLoader.image != nil {
+                            Image(uiImage: imageLoader.image!)
                                 .resizable()
                                 .clipShape(Circle())
                                 .aspectRatio(contentMode: .fit)
@@ -33,10 +32,6 @@ struct ProfileView: View {
                             Text(User.lastname)
                             Text(User.email)
                             Text(User.nickname)
-//                            Text(userData.loadedData?.name     ?? "")
-//                            Text(userData.loadedData?.lastname ?? "")
-//                            Text(userData.loadedData?.email    ?? "")
-//                            Text(userData.loadedData?.nickname ?? "")
                         }
                     }
                 }
@@ -52,7 +47,6 @@ struct ProfileView: View {
                 }
             }
             .listStyle(InsetGroupedListStyle())
-//        }
     }
 }
 

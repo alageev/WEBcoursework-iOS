@@ -18,8 +18,8 @@ struct PostDetail: View {
         userImageLoader = ImageLoader()
         self.post = post
         
-        postImageLoader.downloadImage(from: post.id)
-        userImageLoader.downloadImage(from: post.author.id)
+        postImageLoader.downloadImage(for: post.id)
+        userImageLoader.downloadImage(for: post.author.id)
     }
     
     

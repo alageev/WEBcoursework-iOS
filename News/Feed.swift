@@ -9,27 +9,14 @@ import SwiftUI
 
 struct Feed: View {
     
-    @ObservedObject var posts = Post.loaded
-    @ObservedObject var iGuidesPosts = Post.iGuides
-    
     var body: some View {
         NavigationView {
-            if let posts = posts {
-                List {
-                    Section(header: Text("Мои посты")) {
-                        ForEach (posts.loadedData ?? [], id: \.id) { post in
-                            PostRow(post: post)
-                        }
-                    }
-                    Section(header: Text("Посты из iGuides.ru")) {
-                        ForEach (iGuidesPosts.loadedData ?? []) { post in
-                            iGuidesPostRow(post: post)
-                        }
-                    }
-                }
-                .listStyle(InsetGroupedListStyle())
-                .navigationTitle("Лента")
+            List {
+                PostsSection()
+                iGuidesSection()
             }
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle("Лента")
         }
     }
 }
